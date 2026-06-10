@@ -31,9 +31,9 @@ export default function WatchlistPage() {
       });
 
       if (!response.ok) {
-        const error = await response.json();
-        console.error("Checkout error:", error);
-        alert("Failed to initiate checkout");
+        const data = await response.json().catch(() => ({ error: "Failed to initiate checkout" }));
+        console.error("Checkout error:", data.error);
+        alert(`Checkout failed: ${data.error}`);
         setLoading(null);
         return;
       }
@@ -89,7 +89,7 @@ export default function WatchlistPage() {
                   className="object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-zinc-800 flex items-center justify-center">
+                <div className="w-full h-full bg-zinc-500 flex items-center justify-center">
                   <span className="text-zinc-500">No Image</span>
                 </div>
               )}

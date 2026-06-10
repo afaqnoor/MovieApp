@@ -7,12 +7,12 @@ export async function POST(req: Request) {
         const { items } = body;
 
         if (!items || items.length === 0) {
-            return new NextResponse("Items are required", { status: 400 });
+            return NextResponse.json({ error: "Items are required" }, { status: 400 });
         }
 
         if (!process.env.STRIPE_SECRET_KEY) {
             console.error("STRIPE_SECRET_KEY is missing. Please add it to your .env.local file.");
-            return new NextResponse("Stripe secret key not configured", { status: 500 });
+            return NextResponse.json({ error: "Stripe secret key not configured in .env.local" }, { status: 500 });
         }
 
         // Initialize Stripe with the secret key from environment variables
@@ -45,6 +45,9 @@ export async function POST(req: Request) {
         return NextResponse.json({ url: session.url });
     } catch (err: any) {
         console.error("Error creating checkout session:", err);
-        return new NextResponse(err.message || "Internal Error", { status: err.statusCode || 500 });
+        return NextResponse.json(
+            { error: err.message || "Internal Error" }, 
+            { status: err.statusCode || 500 }
+        );
     }
 }
