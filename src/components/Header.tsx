@@ -20,6 +20,9 @@ const Header = () => {
                         <Link href="/tv" className="text-sm font-medium text-zinc-400 hover:text-white transition-colors">
                             TV Shows
                         </Link>
+                        <Link href="/watchlist" className="text-sm font-bold text-red-500 hover:text-red-400 transition-colors">
+                            Watchlist
+                        </Link>
                     </nav>
                 </div>
 

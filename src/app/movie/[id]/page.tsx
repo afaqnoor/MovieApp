@@ -3,6 +3,7 @@ import { Star, Clock, Calendar, Globe } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Genre, Video } from "@/types";
+import MovieActions from "@/components/MovieActions";
 
 interface MoviePageProps {
     params: Promise<{ id: string }>;
@@ -110,14 +111,14 @@ export default async function MoviePage({ params }: MoviePageProps) {
                                 </p>
                             </div>
 
-                            <div className="flex gap-4">
-                                <button className="bg-red-600 text-white px-8 py-3 rounded-md font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20">
-                                    <a href={`#trailer`} className="flex items-center gap-2">Watch Trailer</a>
-                                </button>
-                                <button className="bg-zinc-800 hover:bg-zinc-700 text-white px-8 py-3 rounded-md font-bold transition-colors">
-                                    Add to Watchlist
-                                </button>
-                            </div>
+                            <MovieActions 
+                                movie={{
+                                    id: movie.id,
+                                    title: movie.title || movie.name || "Unknown Title",
+                                    posterUrl
+                                }} 
+                                hasTrailer={!!trailer} 
+                            />
                         </div>
                     </div>
 
